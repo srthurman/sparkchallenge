@@ -43,7 +43,8 @@ def calc(equation):
 
 	return result
 
-# get user input
-equation = raw_input("Enter a mathmatical equation:")
-output = calc(equation)
-print(output)
+if __name__ == "__main__":
+	# get user input
+	equation = raw_input("Enter a mathmatical equation:")
+	output = calc(equation)
+	print(output)
