@@ -1,4 +1,4 @@
-# arithmatic functions
+# arithmetic functions
 
 def add(x, y):
    """This function adds two numbers"""
@@ -16,31 +16,47 @@ def divide(x, y):
    """This function divides two numbers"""
    return x / y
 
-def calc(equation):	
-	# split input into a list based on white space
-	equation_list = equation.split(" ")
 
+# find the appropriate arithmetic function to use
+def pemdas(equation_list, operand):
+	temp_list = list(equation_list)
+	operand_in_list = operand in temp_list
+	operand_func = {
+		"*": multiply,
+		"/": divide,
+		"+": add,
+		"-": subtract
+	}
+	while operand_in_list:
+		if operand in temp_list:
+			operand_index = temp_list.index(operand)
+			x_index = operand_index - 1
+			y_index = operand_index + 1
+			x = int(temp_list[x_index])
+			y = int(temp_list[y_index])
+			operator_result = operand_func[operand](x,y)
+			temp_list[x_index] = operator_result
+			temp_list.pop(y_index)
+			temp_list.pop(operand_index)
+		else:
+			operand_in_list = False
+	return temp_list
+
+#main logic
+def calc(equation):	
 	#result that will be returned
 	result = 0
 
-	# perform a series of operations on the full arithmetic expression
-	x = int(equation_list.pop(0))
-	while len(equation_list) > 0:
-		operator = equation_list.pop(0)
-		y = int(equation_list.pop(0))
-		
-		if operator == "+":
-			result = add(x,y)
-		elif operator == "-":
-			result = subtract(x,y)
-		elif operator == "*":
-			result = multiply(x,y)
-		elif operator == "/":
-			result = divide(x,y)
+	# split input into a list based on white space
+	equation_list = equation.split(" ")
 
-		# reset x to be the current result for use in the next round of operations
-		x = result
+	# look for arithmetic operations in PEMDAS order
+	equation_list = pemdas(equation_list, "*")
+	equation_list = pemdas(equation_list, "/")
+	equation_list = pemdas(equation_list, "+")
+	equation_list = pemdas(equation_list, "-")
 
+	result = equation_list[0]
 	return result
 
 if __name__ == "__main__":

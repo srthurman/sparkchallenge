@@ -26,5 +26,8 @@ class TestCalculator(unittest.TestCase):
 	def test_multiple_simple_divisions(self):
 		self.assertEqual(calculator.calc("20 / 2 / 5"), 2)
 
+	def test_multiple_operations(self):
+		self.assertEqual(calculator.calc("20 + 3 * 2"), 26)
+
 if __name__ == "__main__":
 	unittest.main()
