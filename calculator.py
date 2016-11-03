@@ -16,29 +16,34 @@ def divide(x, y):
    """This function divides two numbers"""
    return x / y
 
-#result that will be returned
-result = 0
+def calc(equation):	
+	# split input into a list based on white space
+	equation_list = equation.split(" ")
+
+	#result that will be returned
+	result = 0
+
+	# perform a series of operations on the full arithmetic expression
+	x = int(equation_list.pop(0))
+	while len(equation_list) > 0:
+		operator = equation_list.pop(0)
+		y = int(equation_list.pop(0))
+		
+		if operator == "+":
+			result = add(x,y)
+		elif operator == "-":
+			result = subtract(x,y)
+		elif operator == "*":
+			result = multiply(x,y)
+		elif operator == "/":
+			result = divide(x,y)
+
+		# reset x to be the current result for use in the next round of operations
+		x = result
+
+	return result
+
 # get user input
 equation = raw_input("Enter a mathmatical equation:")
-# split input into a list based on white space
-equation_list = equation.split(" ")
-
-# perform a series of operations on the full arithmetic expression
-x = int(equation_list.pop(0))
-while len(equation_list) > 0:
-	operator = equation_list.pop(0)
-	y = int(equation_list.pop(0))
-	
-	if operator == "+":
-		result = add(x,y)
-	elif operator == "-":
-		result = subtract(x,y)
-	elif operator == "*":
-		result = multiply(x,y)
-	elif operator == "/":
-		result = divide(x,y)
-
-	# reset x to be the current result for use in the next round of operations
-	x = result
-
-print(result)
+output = calc(equation)
+print(output)
