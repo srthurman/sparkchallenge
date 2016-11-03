@@ -16,3 +16,24 @@ def divide(x, y):
    """This function divides two numbers"""
    return x / y
 
+#result that will be returned
+result = 0
+# get user input
+equation = raw_input("Enter a mathmatical equation:")
+# split input into a list based on white space
+equation_list = equation.split(" ")
+
+# first handle simplest case: performing an operation on two numbers
+x = int(equation_list[0])
+y = int(equation_list[2])
+operator = equation_list[1]
+if operator == "+":
+	result = add(x,y)
+elif operator == "-":
+	result = subtract(x,y)
+elif operator == "*":
+	result = multiply(x,y)
+elif operator == "/":
+	result = divide(x,y)
+
+print(result)
